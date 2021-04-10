@@ -8,12 +8,12 @@ function serializeResponse(movies){
     return acc
   }, {})
 }
-const { MOVIES } = mutations;
+const { MOVIES, CURRENT_PAGE } = mutations;
 const moviesStore = {
   namespaced: true,
   state: {
     top250IDs: IDs,
-    moviesPerPage: 12,
+    moviesPerPage: 16,
     moviesCurrentPage: 1,
     movies: {}
   },
@@ -22,8 +22,12 @@ const moviesStore = {
     sliceIds: ({ top250IDs }) => (from, to) => top250IDs.slice(from, to),
     getCurrentPage: ({moviesCurrentPage }) => moviesCurrentPage,
     getMoviesPerPage: ({ moviesPerPage }) => moviesPerPage,
+    getTotal: ({ top250IDs }) => Object.keys(top250IDs).length
   },
   mutations: {
+    [CURRENT_PAGE](state, value) {
+      state.moviesCurrentPage = value
+    },
     [MOVIES](state, value) {
       state.movies = value
     }
@@ -50,6 +54,10 @@ const moviesStore = {
       }catch (err){
         console.log(err)
       }
+    },
+    changeCurrentPage( {commit, dispatch}, page ) {
+      commit(CURRENT_PAGE, page);
+      dispatch("fetchMovies")
     }
   }
 };
