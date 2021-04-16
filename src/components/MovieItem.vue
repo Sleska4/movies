@@ -11,7 +11,9 @@
             <BButton size="md" block variant="outline-light">Edit</BButton>
           </div>
           <div class="col pl-2">
-            <BButton size="md" block variant="outline-light">Remove</BButton>
+            <BButton size="md"
+                     block variant="outline-light"
+                    @click="emitRemoveMovie">Remove</BButton>
           </div>
         </div>
     </div>
@@ -25,6 +27,11 @@ export default {
     movies: {
       type: Object,
       require: true
+    }
+  },
+  methods: {
+    emitRemoveMovie(){
+      this.$emit("removeItem", {id: this.movies.imdbID, title: this.movies.Title})
     }
   },
   computed: {

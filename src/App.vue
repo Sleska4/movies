@@ -1,5 +1,7 @@
 <template>
   <div id="app">
+    <Loader/>
+    <Header/>
     <PosterBg :poster="posterBg"/>
     <div>
       <MoviesList :list="getMoviesList" @changePoster="onChangePoster"/>
@@ -18,10 +20,12 @@ import { mapActions, mapGetters } from 'vuex'
 import MoviesList from '@/components/MoviesList'
 import PosterBg from "@/components/PosterBg";
 import MoviesPagination from "@/components/MoviesPagination";
+import Loader from "@/components/Loader";
+import Header from "@/components/Header";
 
 export default {
   name: "app",
-  components: {MoviesPagination, PosterBg, MoviesList},
+  components: {Header, MoviesPagination, PosterBg, MoviesList, Loader},
   computed: {
     ...mapGetters("movies", ["getMoviesList", "getCurrentPage", "getMoviesPerPage", "getTotal"])
   },
