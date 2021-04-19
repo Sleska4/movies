@@ -32,10 +32,10 @@ export default {
   methods: {
     ...mapActions("movies", ["searchMovies", "fetchMovies", "toggleSearchState"]),
     onSearchValueChange(val){
-      if(val){
+      if(val) {
         this.searchMovies(val)
         this.toggleSearchState(true)
-      } else{
+      } else {
         this.fetchMovies()
         this.toggleSearchState(false)
       }

@@ -42,6 +42,7 @@ export default {
   background-size: cover;
   background-position: center;
   transition: all 0.2s ease;
+  min-height: 100vh;
 }
 
 .poster-page-bg::before {

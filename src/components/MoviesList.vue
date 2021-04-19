@@ -1,19 +1,21 @@
 <template>
-  <BContainer>
-    <h3 class="list-title">{{listTitle}}</h3>
-    <BRow>
-      <template v-if="isExist">
-        <BCol cols="3" v-for="(movie, key) in list" :key="key">
-          <MovieItem :movies="movie"
-                     @mouseover.native="onMouseOver(movie.Poster)"
-                     @removeItem="onRemoveItem"/>
-        </BCol>
-      </template>
-      <template v-else>
-        <div>Empty list</div>
-      </template>
-    </BRow>
-  </BContainer>
+  <div class="movies-list-end">
+    <BContainer>
+      <h3 class="list-title">{{listTitle}}</h3>
+      <BRow>
+        <template v-if="isExist">
+          <BCol cols="3" v-for="(movie, key) in list" :key="key">
+            <MovieItem :movies="movie"
+                       @mouseover.native="onMouseOver(movie.Poster)"
+                       @removeItem="onRemoveItem"/>
+          </BCol>
+        </template>
+        <template v-else>
+          <div>Empty list</div>
+        </template>
+      </BRow>
+    </BContainer>
+  </div>
 </template>
 
 <script>
@@ -53,6 +55,9 @@ name: "MoviesList",
 </script>
 
 <style scoped>
+.movies-list-end{
+  margin-bottom: 30px;
+}
 .list-title{
   font-size: 50px;
   margin-bottom: 30px;
