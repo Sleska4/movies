@@ -32,13 +32,20 @@ name: "MoviesList",
   },
   methods: {
     ...mapActions("movies", ["removeMovie"]),
+    ...mapActions(["showNotify"]),
     onMouseOver(poster){
       this.$emit("changePoster", poster)
     },
     async onRemoveItem({ id, title }){
       const isConfirmed = await this.$bvModal.msgBoxConfirm(`Are you sure delete ${title}?`);
       if(isConfirmed){
-        this.removeMovie(id)
+        this.removeMovie(id);
+        this.showNotify({
+          msg: "Movie deleted successful",
+          variant: "success",
+          title: "Success",
+
+        })
       }
     }
   },

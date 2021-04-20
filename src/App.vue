@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <Loader/>
+    <Notification/>
     <Header/>
     <PosterBg :poster="posterBg"/>
     <div>
@@ -22,10 +23,11 @@ import PosterBg from "@/components/PosterBg";
 import MoviesPagination from "@/components/MoviesPagination";
 import Loader from "@/components/Loader";
 import Header from "@/components/Header";
+import Notification from "@/components/Notification";
 
 export default {
   name: "app",
-  components: {Header, MoviesPagination, PosterBg, MoviesList, Loader},
+  components: {Notification, Header, MoviesPagination, PosterBg, MoviesList, Loader},
   computed: {
     ...mapGetters("movies", ["getMoviesList", "getCurrentPage", "getMoviesPerPage", "getTotal"])
   },
