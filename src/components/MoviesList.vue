@@ -7,13 +7,18 @@
           <BCol cols="3" v-for="(movie, key) in list" :key="key">
             <MovieItem :movies="movie"
                        @mouseover.native="onMouseOver(movie.Poster)"
-                       @removeItem="onRemoveItem"/>
+                       @removeItem="onRemoveItem"
+                       @showModal="onShowMovieInfo"
+            />
           </BCol>
         </template>
         <template v-else>
           <div>Empty list</div>
         </template>
       </BRow>
+      <BModal :id="movieInfoModalId" size="xl" hide-footer hide-header>
+        <p>Text</p>
+      </BModal>
     </BContainer>
   </div>
 </template>
@@ -28,6 +33,11 @@ name: "MoviesList",
     list: {
       type: Object,
       default: () => ({})
+    }
+  },
+  data(){
+    return{
+      movieInfoModalId: "movie-info"
     }
   },
   methods: {
@@ -47,6 +57,9 @@ name: "MoviesList",
 
         })
       }
+    },
+    onShowMovieInfo(id){
+      this.$bvModal.show(this.movieInfoModalId)
     }
   },
   computed: {
