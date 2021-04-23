@@ -7,7 +7,6 @@
       prev-text="Prev"
       next-text="Next"
     />
-    {{this.currentPage}}
   </div>
 </template>
 
@@ -45,7 +44,7 @@ export default {
 .movie-pagination{
   display: flex;
   justify-content: center;
-  margin-top: 30px;
+  margin-top: auto;
 }
 
 .movie-pagination >>> .pagination .page-item .page-link {

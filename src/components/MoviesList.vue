@@ -16,8 +16,18 @@
           <div>Empty list</div>
         </template>
       </BRow>
-      <BModal :id="movieInfoModalId" size="xl" hide-footer hide-header>
-        <p>Text</p>
+      <BModal
+              body-class="movie-modal"
+              class="movie-modal"
+              :id="movieInfoModalId"
+              size="xl"
+              hide-footer
+              hide-header
+      >
+        <MovieInfoModalContent
+            :movie="selectedMovie"
+            @closeModal="onCloseModal"
+        />
       </BModal>
     </BContainer>
   </div>
@@ -26,9 +36,10 @@
 <script>
 import MovieItem from "@/components/MovieItem";
 import {mapActions, mapGetters} from "vuex";
+import MovieInfoModalContent from "@/components/MovieInfoModalContent";
 export default {
 name: "MoviesList",
-  components: {MovieItem},
+  components: {MovieInfoModalContent, MovieItem},
   props: {
     list: {
       type: Object,
@@ -37,7 +48,8 @@ name: "MoviesList",
   },
   data(){
     return{
-      movieInfoModalId: "movie-info"
+      movieInfoModalId: "movie-info",
+      selectedMovieID: ""
     }
   },
   methods: {
@@ -59,7 +71,11 @@ name: "MoviesList",
       }
     },
     onShowMovieInfo(id){
+      this.selectedMovieID = id;
       this.$bvModal.show(this.movieInfoModalId)
+    },
+    onCloseModal(){
+      this.$bvModal.hide(this.movieInfoModalId)
     }
   },
   computed: {
@@ -69,6 +85,9 @@ name: "MoviesList",
     },
   listTitle() {
     return this.getIsSearch ? "Search result" : "IMDB Top 250"
+  },
+  selectedMovie() {
+    return this.selectedMovieID ? this.list[this.selectedMovieID] : null;
   }
   }
 }
@@ -83,4 +102,10 @@ name: "MoviesList",
   margin-bottom: 30px;
   color: #FFF;
 }
+</style>
+
+<style>
+  .modal-body {
+    padding: 0 !important;
+  }
 </style>
