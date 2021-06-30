@@ -1,5 +1,5 @@
 <template>
-  <div class="movie-pagination">
+  <div class="movies-pagination d-flex justify-content-center">
     <BPagination
       v-model="currentPageModel"
       :per-page="perPage"
@@ -14,53 +14,51 @@
 export default {
   name: "MoviesPagination",
   props: {
-      currentPage: {
-        type: Number,
-        default: 1
-      },
-      total: {
-        type: Number,
-        default: 1
-      },
-      perPage: {
-        type: Number,
-        default: 1
-      }
+    currentPage: {
+      type: Number,
+      default: 1
+    },
+    total: {
+      type: Number,
+      default: 1
+    },
+    perPage: {
+      type: Number,
+      default: 1
+    }
   },
   computed: {
     currentPageModel: {
-      get(){
-        return this.currentPage
+      get() {
+        return this.currentPage;
       },
-      set(value){
-        this.$emit("onChangePage", value)
+      set(value) {
+        this.$emit("pageChanged", value);
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>
-.movie-pagination{
-  display: flex;
-  justify-content: center;
+.movies-pagination {
   margin-top: auto;
 }
 
-.movie-pagination >>> .pagination .page-item .page-link {
+.movies-pagination >>> .pagination .page-item .page-link {
   background-color: transparent;
   font-size: 12px;
   color: #fff;
   box-shadow: none;
 }
-.movie-pagination >>> .pagination .page-item.active .page-link {
+
+.movies-pagination >>> .pagination .page-item.active .page-link {
+  border-color: #fff;
   background-color: #fff;
   color: #000;
-  border-color: #fff;
 }
-.movie-pagination >>> .pagination .page-item.disabled .page-link {
+
+.movies-pagination >>> .pagination .page-item.disabled .page-link {
   color: lightgray;
-
 }
-
 </style>

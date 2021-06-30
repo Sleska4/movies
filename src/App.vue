@@ -1,24 +1,22 @@
 <template>
   <div id="app">
-    <Loader/>
-    <Notification/>
-    <Header/>
-    <PosterBg :poster="posterBg"/>
-    <div>
-      <MoviesList :list="getMoviesList" @changePoster="onChangePoster"/>
-      </div>
+    <Loader />
+    <Notification />
+    <PosterBg :poster="posterBg" />
+    <Header />
+    <MoviesList :list="moviesList" @changePoster="onChangePoster" />
     <MoviesPagination
-        :per-page="getMoviesPerPage"
-        :current-page="getCurrentPage"
-        :total="getTotal"
-        @onChangePage="onChangePage"
+      :current-page="currentPage"
+      :per-page="moviesPerPage"
+      :total="moviesLength"
+      @pageChanged="onPageChanged"
     />
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import MoviesList from '@/components/MoviesList'
+import { mapActions, mapGetters } from "vuex";
+import MoviesList from "@/components/MoviesList";
 import PosterBg from "@/components/PosterBg";
 import MoviesPagination from "@/components/MoviesPagination";
 import Loader from "@/components/Loader";
@@ -27,35 +25,52 @@ import Notification from "@/components/Notification";
 
 export default {
   name: "app",
-  components: {Notification, Header, MoviesPagination, PosterBg, MoviesList, Loader},
-  computed: {
-    ...mapGetters("movies", ["getMoviesList", "getCurrentPage", "getMoviesPerPage", "getTotal"])
+  components: {
+    MoviesList,
+    PosterBg,
+    MoviesPagination,
+    Loader,
+    Header,
+    Notification
   },
-  data(){
-    return{
-      posterBg: ""
+  data: () => ({
+    posterBg: ""
+  }),
+  computed: {
+    ...mapGetters("movies", [
+      "moviesList",
+      "currentPage",
+      "moviesPerPage",
+      "moviesLength"
+    ])
+  },
+  watch: {
+    "$route.query": {
+      handler: "onPageQueryChange",
+      immediate: true,
+      deep: true
     }
   },
   methods: {
-    ...mapActions("movies", ["fetchMovies", "changeCurrentPage"]),
-    onChangePoster(poster){
-      this.posterBg = poster
+    ...mapActions("movies", ["changeCurrentPage"]),
+    onPageQueryChange({ page = 1 }) {
+      this.changeCurrentPage(Number(page));
     },
-    onChangePage(page){
-      this.$router.push({ query: {page} })
-      this.changeCurrentPage(page);
+    onChangePoster(poster) {
+      this.posterBg = poster;
     },
-  },
-  created() {
-    if(this.$route.query.page) {
-      this.changeCurrentPage(Number(this.$route.query.page));
+    onPageChanged(page) {
+      this.$router.push({ query: { page } });
     }
   }
-}
+};
 </script>
 
 <style>
-#app{
+#app {
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   position: relative;
   min-height: 100vh;
   display: flex;

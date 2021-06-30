@@ -1,24 +1,24 @@
-import mutations from '@/store/mutations';
+import mutations from "@/store/mutations";
 
 const { SHOW_TOAST_NOTIFY } = mutations;
 
 const notificationStore = {
   state: {
-    messagePool: [],
+    messagePool: []
   },
   getters: {
-    messagePool: ({ messagePool }) => messagePool[messagePool.length - 1],
+    messagePool: ({ messagePool }) => messagePool[messagePool.length - 1]
   },
   mutations: {
-    [SHOW_TOAST_NOTIFY](state, message) {
-      state.messagePool.push(message);
-    },
+    [SHOW_TOAST_NOTIFY](state, msg) {
+      state.messagePool.push(msg);
+    }
   },
   actions: {
-    showNotify({ commit }, message) {
-      commit(SHOW_TOAST_NOTIFY, message);
-    },
-  },
+    showNotify({ commit }, msg) {
+      commit(SHOW_TOAST_NOTIFY, msg);
+    }
+  }
 };
 
 export default notificationStore;
